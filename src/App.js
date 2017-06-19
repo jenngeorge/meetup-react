@@ -3,6 +3,7 @@ import logo from './logo.svg';
 import './App.css';
 import EventSearch from './components/event_search';
 
+
 class App extends Component {
 
   render() {

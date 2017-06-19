@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import $ from 'jquery';
 import SearchForm from './search_form';
 import EventList from './event_list';
+import MapContainer from './map_container';
 
 class EventSearch extends Component {
   constructor(props) {
@@ -54,14 +55,17 @@ class EventSearch extends Component {
   }
 
   render() {
-    debugger
+    // debugger
     return (
       <div className="EventSearch">
         < SearchForm updateTextSearch={this.updateTextSearch} />
         < EventList events={this.state.events} />
+        < MapContainer />
       </div>
     );
   }
 }
+
+
 
 export default EventSearch;
