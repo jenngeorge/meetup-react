@@ -17,6 +17,9 @@ export class Container extends Component {
     return (
       <div style={style}>
         <Map google={this.props.google}
+          center={this.props.center}
+          events={this.props.events}
+          updateLocation={this.props.updateLocation}
           />
       </div>
     )

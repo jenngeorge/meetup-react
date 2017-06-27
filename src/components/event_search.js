@@ -11,15 +11,16 @@ class EventSearch extends Component {
       events: [],
       text: '',
       lat: `40.739527`,
-      lon: `-74.014773`
+      lng: `-74.014773`
       }
       // default: Carnegie Hall coordinates
     this.searchEvents = this.searchEvents.bind(this);
     this.updateTextSearch = this.updateTextSearch.bind(this);
+    this.updateLocation = this.updateLocation.bind(this);
   }
 
   componentDidMount(){
-    this.searchEvents({lat: this.state.lat, lon: this.state.lon});
+    this.searchEvents({lat: this.state.lat, lng: this.statelng});
   }
 
   toQueryString(obj){
@@ -36,10 +37,14 @@ class EventSearch extends Component {
     this.setState({text: newText}, this.searchEvents);
   }
 
+  updateLocation(newCenter){
+    this.setState({lat: newCenter.lat, lng: newCenter.lng}, this.searchEvents)
+  }
+
   searchEvents(){
     const queryString = this.toQueryString({
       lat: this.state.lat,
-      lon: this.state.lon,
+      lon: this.state.lng,
       text: this.state.text
       })
 
@@ -55,12 +60,15 @@ class EventSearch extends Component {
   }
 
   render() {
-    // debugger
+    const center = {lat: this.state.lat, lng: this.state.lng};
     return (
       <div className="EventSearch">
         < SearchForm updateTextSearch={this.updateTextSearch} />
         < EventList events={this.state.events} />
-        < MapContainer />
+        < MapContainer
+          events={this.state.events}
+          updateLocation={this.updateLocation}
+          center={center}/>
       </div>
     );
   }

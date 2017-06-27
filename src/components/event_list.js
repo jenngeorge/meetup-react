@@ -1,16 +1,19 @@
 import React from 'react';
+import EventItem from './event_item';
 
 const EventList = (props) => {
     const indexItems = props.events.map(event => (
-        <div key={event.id}>
-            {event.name}
-        </div>
+        <li key={event.id}>
+            < EventItem event={event} />
+        </li>
     ))
 
     return (
         <div className="event-index">
             <h1>Events</h1>
-            {indexItems}
+            <ul>
+              {indexItems}
+            </ul>
         </div>
     );
 }

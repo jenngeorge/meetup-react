@@ -5,10 +5,14 @@ import ReactDOM from 'react-dom';
 
 class Map extends Component {
 
+  // TODO: listen for map being dragged around
+  // TODO: listen for map zoom change
+// TODO: marker things
+
   constructor(props) {
     super(props)
     this.state = {
-      center: this.props.center || {lat: `40.739527`, lon: `-74.014773`},
+      center: this.props.center || {lat: `40.739527`, lng: `-74.014773`},
       zoom: 14
       }
   }
@@ -18,29 +22,43 @@ class Map extends Component {
   }
 
   componentDidUpdate(prevProps, prevState) {
-    if (prevProps.google !== this.props.google) {
+    if (prevProps !== this.props) {
       this.loadMap();
     }
   }
 
+  setMarkers(events, google, map){
+
+    events.forEach(event => {
+      if (event.venue && event.venue.lat && event.venue.lon){
+        let position = new google.maps.LatLng(event.venue.lat, event.venue.lon)
+        let marker = new google.maps.Marker({
+          position,
+          map: map,
+          message: event.name
+        })
+        marker.addListener('click', () => console.log(`hi, I'm ${event.name}`));
+      }
+    });
+  }
+
   loadMap(){
     if (this.props && this.props.google) {
-      // google is available
       const {google} = this.props;
       const maps = google.maps;
 
       const mapRef = this.refs.map;
       const node = ReactDOM.findDOMNode(mapRef);
 
-      let zoom = 14;
-      let lat = 37.774929;
-      let lng = -122.419416;
-      const center = new maps.LatLng(lat, lng);
+      let zoom = 13;
+      const center = new maps.LatLng(this.state.center.lat, this.state.center.lng);
       const mapConfig = Object.assign({}, {
         center: center,
         zoom: zoom
       })
       this.map = new maps.Map(node, mapConfig);
+
+      this.setMarkers(this.props.events, google, this.map);
     }
   }
 
