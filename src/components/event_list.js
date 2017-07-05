@@ -1,5 +1,6 @@
 import React from 'react';
 import EventItem from './event_item';
+import './EventList.css';
 
 const EventList = (props) => {
     const indexItems = props.events.map(event => (
@@ -9,7 +10,7 @@ const EventList = (props) => {
     ))
 
     return (
-        <div className="event-index">
+        <div className="event-list-container">
             <h1>Events</h1>
             <ul>
               {indexItems}

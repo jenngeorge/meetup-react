@@ -1,0 +1,10 @@
+.event-search-container {
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: row;
+}
+
+.left-container {
+  width: 33%;
+  min-width: 300px;
+}

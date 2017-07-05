@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import $ from 'jquery';
+import './EventSearch.css';
 import SearchForm from './search_form';
 import EventList from './event_list';
 import MapContainer from './map_container';
@@ -62,9 +63,11 @@ class EventSearch extends Component {
   render() {
     const center = {lat: this.state.lat, lng: this.state.lng};
     return (
-      <div className="EventSearch">
-        < SearchForm updateTextSearch={this.updateTextSearch} />
-        < EventList events={this.state.events} />
+      <div className="event-search-container">
+        <div className="left-container">
+          < SearchForm updateTextSearch={this.updateTextSearch} />
+          < EventList events={this.state.events} />
+        </div>
         < MapContainer
           events={this.state.events}
           updateLocation={this.updateLocation}

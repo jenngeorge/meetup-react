@@ -7,8 +7,8 @@ import Map from './map';
 export class Container extends Component {
   render() {
     const style = {
-      width: '500px',
-      height: '500px'
+      width: '67vw',
+      height: '100vh'
     }
 
     if (!this.props.loaded) {
