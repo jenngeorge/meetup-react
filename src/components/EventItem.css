@@ -1,0 +1,39 @@
+.event-item {
+  width: 80%;
+  background-color: white;
+  margin: 20px auto;
+  padding: 20px;
+  border-radius: 3px;
+  word-wrap: break-word;
+}
+
+.event-item img{
+  max-width: 100%;
+}
+
+h1.event-name {
+  font-size: 20px;
+}
+
+h3.time {
+  font-size: 14px;
+  font-weight: bold;
+}
+
+h2.group-name {
+  font-size: 14px;
+}
+
+h3.rsvps {
+  font-size: 14px;
+  font-weight: bold;
+  text-align: right;
+}
+
+.description {
+  font-size: 14px;
+}
+
+a.event-link {
+  font-size: 12px;
+}

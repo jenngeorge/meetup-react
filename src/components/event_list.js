@@ -11,7 +11,6 @@ const EventList = (props) => {
 
     return (
         <div className="event-list-container">
-            <h1>Events</h1>
             <ul>
               {indexItems}
             </ul>

@@ -1,4 +1,11 @@
 .event-list-container {
-  height: 100vh;
+  height: 90vh;
   overflow: scroll;
+  background-color: whitesmoke;
+}
+
+.event-list-container ul {
+  margin: 0;
+  padding: 0;
+  border: none;
 }

@@ -21,7 +21,7 @@ class EventSearch extends Component {
   }
 
   componentDidMount(){
-    this.searchEvents({lat: this.state.lat, lng: this.statelng});
+    this.searchEvents({lat: this.state.lat, lng: this.state.lng});
   }
 
   toQueryString(obj){
@@ -64,8 +64,8 @@ class EventSearch extends Component {
     const center = {lat: this.state.lat, lng: this.state.lng};
     return (
       <div className="event-search-container">
+        < SearchForm updateTextSearch={this.updateTextSearch} />
         <div className="left-container">
-          < SearchForm updateTextSearch={this.updateTextSearch} />
           < EventList events={this.state.events} />
         </div>
         < MapContainer
