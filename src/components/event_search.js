@@ -12,7 +12,9 @@ class EventSearch extends Component {
       events: [],
       text: '',
       lat: `40.739527`,
-      lng: `-74.014773`
+      lng: `-74.014773`,
+      radius: '1',
+      zoom: 14
       }
       // default: Carnegie Hall coordinates
     this.searchEvents = this.searchEvents.bind(this);
@@ -27,7 +29,7 @@ class EventSearch extends Component {
   toQueryString(obj){
     let parts = [];
     for (let i in obj) {
-        if (obj.hasOwnProperty(i) && obj[i] !== '') {
+        if (obj.hasOwnProperty(i) && obj[i] !== '' && obj[i] !== "") {
             parts.push(`${encodeURIComponent(i)}=${encodeURIComponent(obj[i])}`);
         }
     }
@@ -38,14 +40,19 @@ class EventSearch extends Component {
     this.setState({text: newText}, this.searchEvents);
   }
 
-  updateLocation(newCenter){
-    this.setState({lat: newCenter.lat, lng: newCenter.lng}, this.searchEvents)
+  updateLocation(newCenter, newRadius, newZoom){
+    this.setState({
+      lat: newCenter.lat,
+      lng: newCenter.lng,
+      radius: newRadius,
+      zoom: newZoom}, this.searchEvents)
   }
 
   searchEvents(){
     const queryString = this.toQueryString({
       lat: this.state.lat,
       lon: this.state.lng,
+      radius: this.state.radius,
       text: this.state.text
       })
 
@@ -57,10 +64,14 @@ class EventSearch extends Component {
         if (response.data){
           this.setState({events: response.data})
         }
+      }, error => {
+        debugger
+        console.log(error)
       })
   }
 
   render() {
+    debugger
     const center = {lat: this.state.lat, lng: this.state.lng};
     return (
       <div className="event-search-container">
