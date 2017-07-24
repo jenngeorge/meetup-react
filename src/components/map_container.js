@@ -20,6 +20,7 @@ export class Container extends Component {
           center={this.props.center}
           events={this.props.events}
           updateLocation={this.props.updateLocation}
+          setActiveEvent={this.props.setActiveEvent}
           />
       </div>
     )

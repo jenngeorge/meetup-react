@@ -34,9 +34,13 @@ class Map extends Component {
         let marker = new google.maps.Marker({
           position,
           map: map,
-          message: event.name
+          message: event.name,
+          eventId: event.id
         })
-        marker.addListener('click', () => console.log(`hi, I'm ${event.name}`));
+        marker.addListener('click', () => {
+          console.log(`hi, I'm ${event.id}`);
+          this.props.setActiveEvent(event.id)
+        });
       }
     });
   }

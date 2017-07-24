@@ -14,12 +14,14 @@ class EventSearch extends Component {
       lat: `40.739527`,
       lng: `-74.014773`,
       radius: '1',
-      zoom: 14
+      zoom: 14,
+      activeEventId: ""
       }
       // default: Carnegie Hall coordinates
     this.searchEvents = this.searchEvents.bind(this);
     this.updateTextSearch = this.updateTextSearch.bind(this);
     this.updateLocation = this.updateLocation.bind(this);
+    this.setActiveEvent = this.setActiveEvent.bind(this);
   }
 
   componentDidMount(){
@@ -70,19 +72,25 @@ class EventSearch extends Component {
       })
   }
 
-  render() {
+  setActiveEvent(eventId){
     debugger
+    this.setState({activeEventId: eventId});
+  }
+
+  render() {
     const center = {lat: this.state.lat, lng: this.state.lng};
     return (
       <div className="event-search-container">
         < SearchForm updateTextSearch={this.updateTextSearch} />
         <div className="left-container">
-          < EventList events={this.state.events} />
+          < EventList events={this.state.events}
+            activeEventId={this.state.activeEventId}/>
         </div>
         < MapContainer
           events={this.state.events}
           updateLocation={this.updateLocation}
-          center={center}/>
+          center={center}
+          setActiveEvent={this.setActiveEvent}/>
       </div>
     );
   }
