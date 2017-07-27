@@ -67,13 +67,11 @@ class EventSearch extends Component {
           this.setState({events: response.data})
         }
       }, error => {
-        debugger
         console.log(error)
       })
   }
 
   setActiveEvent(eventId){
-    debugger
     this.setState({activeEventId: eventId});
   }
 

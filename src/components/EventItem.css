@@ -1,5 +1,7 @@
 .event-item {
   width: 80%;
+  height: 200px;
+  overflow: scroll;
   background-color: white;
   margin: 20px auto;
   padding: 20px;
