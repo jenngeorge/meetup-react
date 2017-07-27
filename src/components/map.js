@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
-import Scroll from 'react-scroll';
 
 //thanks to https://www.fullstackreact.com/articles/how-to-write-a-google-maps-react-component/#the-map-container-component
 
@@ -23,18 +22,18 @@ class Map extends Component {
   }
 
   componentDidUpdate(prevProps, prevState) {
-    if (prevProps !== this.props) {
-      this.loadMap();
+    if (prevProps.events !== this.props.events) {
+      this.setMarkers();
     }
   }
 
-  setMarkers(events, google, map){
-    events.forEach(event => {
+  setMarkers(){
+    this.props.events.forEach(event => {
       if (event.venue && event.venue.lat && event.venue.lon){
-        let position = new google.maps.LatLng(event.venue.lat, event.venue.lon)
-        let marker = new google.maps.Marker({
+        let position = new this.google.maps.LatLng(event.venue.lat, event.venue.lon)
+        let marker = new this.google.maps.Marker({
           position,
-          map: map,
+          map: this.map,
           message: event.name,
           eventId: event.id
         })
@@ -79,40 +78,40 @@ class Map extends Component {
 
   loadMap(){
     if (this.props && this.props.google) {
-      const {google} = this.props;
-      const maps = google.maps;
+      this.google = this.props.google;
+      this.maps = this.google.maps;
 
       const mapRef = this.refs.map;
       const node = ReactDOM.findDOMNode(mapRef);
 
       let zoom = this.state.zoom;
-      const center = new maps.LatLng(this.state.center.lat, this.state.center.lng);
+      const center = new this.maps.LatLng(this.state.center.lat, this.state.center.lng);
       const mapConfig = Object.assign({}, {
         center: center,
         zoom: zoom
       })
-      this.map = new maps.Map(node, mapConfig);
+      this.map = new this.maps.Map(node, mapConfig);
 
-      this.setMarkers(this.props.events, google, this.map);
-      this.addMapListener(this.map, maps,google);
+      this.setMarkers();
+      this.addMapListener();
 
       const controlDiv = document.createElement('div');
       this.SearchControl(controlDiv);
 
       controlDiv.index = 1;
-      this.map.controls[google.maps.ControlPosition.TOP_RIGHT].push(controlDiv);
+      this.map.controls[this.google.maps.ControlPosition.TOP_RIGHT].push(controlDiv);
     }
   }
 
-  addMapListener(map, maps, google){
-    google.maps.event.addListener(map, 'idle', () => {
-      const center = map.getCenter();
+  addMapListener(){
+    this.google.maps.event.addListener(this.map, 'idle', () => {
+      const center = this.map.getCenter();
       const { north, west } = this.map.getBounds().toJSON();
-      const northWest = new maps.LatLng(north, west)
-      const radius = Math.floor(google.maps.geometry.spherical.computeDistanceBetween(center, northWest) / 1609.34) // meters in a mile;
+      const northWest = new this.maps.LatLng(north, west)
+      const radius = Math.floor(this.google.maps.geometry.spherical.computeDistanceBetween(center, northWest) / 1609.34) // meters in a mile;
       this.setState({center: {lat: `${center.lat()}`, lng: `${center.lng()}`},
         radius: `${radius}`,
-        zoom: map.getZoom()});
+        zoom: this.map.getZoom()});
     });
   }
 
