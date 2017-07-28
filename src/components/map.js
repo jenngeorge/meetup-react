@@ -13,6 +13,8 @@ class Map extends Component {
       radius: this.props.radius || '1'
       }
 
+    this.markers = {};
+
     this.loadMap = this.loadMap.bind(this);
     this.SearchControl = this.SearchControl.bind(this);
   }
@@ -23,8 +25,31 @@ class Map extends Component {
 
   componentDidUpdate(prevProps, prevState) {
     if (prevProps.events !== this.props.events) {
+      this.removeMarkers();
       this.setMarkers();
     }
+    if (prevProps.activeEventId !== this.props.activeEventId){
+      if (prevProps.activeEventId.length > 0){
+        this.updateMarkerIcon(this.markers[prevProps.activeEventId], "deselect");
+      }
+      this.updateMarkerIcon(this.markers[this.props.activeEventId], "select");
+    }
+  }
+
+  updateMarkerIcon(marker, status){
+    if (status === "deselect"){
+      marker.setIcon(this.unselectedMarkerIcon)
+    } else {
+      marker.setIcon(this.selectedMarkerIcon)
+    }
+  }
+
+  removeMarkers(){
+    const markerIds = Object.keys(this.markers);
+    for (let i = 0; i < markerIds.length; i++) {
+        this.markers[markerIds[i]].setMap(null);
+    }
+    this.markers = {};
   }
 
   setMarkers(){
@@ -32,11 +57,14 @@ class Map extends Component {
       if (event.venue && event.venue.lat && event.venue.lon){
         let position = new this.google.maps.LatLng(event.venue.lat, event.venue.lon)
         let marker = new this.google.maps.Marker({
+          icon: this.unselectedMarkerIcon,
           position,
           map: this.map,
           message: event.name,
           eventId: event.id
-        })
+        });
+        this.markers[event.id] = marker;
+
         marker.addListener('click', () => {
           console.log(`hi, I'm ${event.id}`);
           this.props.setActiveEvent(event.id)
@@ -69,7 +97,6 @@ class Map extends Component {
     controlText.innerHTML = 'Redo search in map';
     controlUI.appendChild(controlText);
 
-
     const that = this;
     controlUI.addEventListener('click', () => {
      that.props.updateLocation(that.state.center, that.state.radius, this.state.zoom);
@@ -91,6 +118,24 @@ class Map extends Component {
         zoom: zoom
       })
       this.map = new this.maps.Map(node, mapConfig);
+
+      this.unselectedMarkerIcon = {
+        path: 'M0-48c-9.8 0-17.7 7.8-17.7 17.4 0 15.5 17.7 30.6 17.7 30.6s17.7-15.4 17.7-30.6c0-9.6-7.9-17.4-17.7-17.4z',
+        fillColor: '#FF4081',
+        fillOpacity: 0.7,
+        scale: 0.5,
+        strokeColor: '#FF4081',
+        strokeWeight: 1
+      }
+
+      this.selectedMarkerIcon = {
+        path: 'M0-48c-9.8 0-17.7 7.8-17.7 17.4 0 15.5 17.7 30.6 17.7 30.6s17.7-15.4 17.7-30.6c0-9.6-7.9-17.4-17.7-17.4z',
+        fillColor: '#4CAF50',
+        fillOpacity: 1,
+        scale: 0.7,
+        strokeColor: '#388E3C',
+        strokeWeight: 1
+      }
 
       this.setMarkers();
       this.addMapListener();

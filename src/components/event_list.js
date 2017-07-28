@@ -7,8 +7,8 @@ class EventList extends Component {
     super(props)
   }
 
-  componentDidUpdate(nextProps){
-    if (nextProps.activeEventId !== this.props.activeEventId){
+  componentDidUpdate(prevProps){
+    if (prevProps.activeEventId !== this.props.activeEventId){
       this.refs[this.props.activeEventId].scrollIntoView({block: 'end',
       behavior: 'smooth'});
     }
@@ -16,18 +16,12 @@ class EventList extends Component {
 
   render(){
     const indexItems = this.props.events.map(event => {
-      if (event.id === this.props.activeEventId){
+      if ((event.venue && event.venue.lat && event.venue.lon)){
         return (
             <li key={event.id} id={event.id} ref={event.id}
-              className="active-event">
-                < EventItem event={event} />
-            </li>
-        )
-      }
-      else if ((event.venue && event.venue.lat && event.venue.lon)){
-        return (
-            <li key={event.id} id={event.id} ref={event.id}>
-                < EventItem event={event} />
+              className={event.id === this.props.activeEventId ? "active-event" : ""}>
+                < EventItem event={event}
+                  setActiveEvent={this.props.setActiveEvent}/>
             </li>
         )
       }

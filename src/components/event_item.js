@@ -18,9 +18,8 @@ class EventItem extends Component {
   render(){
     const event = this.props.event;
     const date = new Date(event.time);
-
     return (
-      <div className="event-item">
+      <div className="event-item" onClick={this.props.setActiveEvent.bind(this, event.id)}>
         <h1 className="event-name">{event.name}</h1>
         <a className="event-link" href={`${event.link}`}>{event.link}</a>
         <h3 className="time"> {date.toString()}</h3>

@@ -21,6 +21,7 @@ export class Container extends Component {
           events={this.props.events}
           updateLocation={this.props.updateLocation}
           setActiveEvent={this.props.setActiveEvent}
+          activeEventId={this.props.activeEventId}
           />
       </div>
     )

@@ -64,10 +64,11 @@ class EventSearch extends Component {
       url: `https://api.meetup.com/find/events?key=${process.env.REACT_APP_MEETUP_KEY}&${queryString}`,
     }).then(response => {
         if (response.data){
-          this.setState({events: response.data})
+          this.setState({events: response.data, activeEventId: ""})
         }
       }, error => {
-        console.log(error)
+        console.log(error);
+        console.log("error with Meetup query");
       })
   }
 
@@ -82,12 +83,14 @@ class EventSearch extends Component {
         < SearchForm updateTextSearch={this.updateTextSearch} />
         <div className="left-container">
           < EventList events={this.state.events}
-            activeEventId={this.state.activeEventId}/>
+            activeEventId={this.state.activeEventId}
+            setActiveEvent={this.setActiveEvent}/>
         </div>
         < MapContainer
           events={this.state.events}
           updateLocation={this.updateLocation}
           center={center}
+          activeEventId={this.state.activeEventId}
           setActiveEvent={this.setActiveEvent}/>
       </div>
     );
