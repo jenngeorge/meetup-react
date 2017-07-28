@@ -51,6 +51,7 @@ class EventSearch extends Component {
   }
 
   searchEvents(){
+    console.log('searching..');
     const queryString = this.toQueryString({
       lat: this.state.lat,
       lon: this.state.lng,

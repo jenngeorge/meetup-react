@@ -8,7 +8,8 @@ class EventList extends Component {
   }
 
   componentDidUpdate(prevProps){
-    if (prevProps.activeEventId !== this.props.activeEventId){
+    if (prevProps.activeEventId !== this.props.activeEventId &&
+      this.props.activeEventId !== ""){
       this.refs[this.props.activeEventId].scrollIntoView({block: 'end',
       behavior: 'smooth'});
     }
