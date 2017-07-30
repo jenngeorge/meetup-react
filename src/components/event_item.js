@@ -4,8 +4,20 @@ import "./EventItem.css";
 class EventItem extends Component {
   constructor(props){
     super(props)
+    this.state = {
+      expanded: false
+    }
 
+    this.resizeDescription = this.resizeDescription.bind(this);
     this.escapedHTML = this.escapedHTML.bind(this);
+  }
+
+  resizeDescription(){
+    if (this.state.expanded){
+      this.setState({expanded: false});
+    } else {
+      this.setState({expanded: true});
+    }
   }
 
   escapedHTML(html){
@@ -24,7 +36,11 @@ class EventItem extends Component {
         <a className="event-link" href={`${event.link}`}>{event.link}</a>
         <h3 className="time"> {date.toString()}</h3>
         <h2 className="group-name">group: {event.group.name}</h2>
-        <div className="description" dangerouslySetInnerHTML={this.escapedHTML(event.description)}></div>
+        <div className={this.state.expanded ? "description-full" : "description-collapsed" }
+          dangerouslySetInnerHTML={this.escapedHTML(event.description)}></div>
+        <div className="resize-description" onClick={this.resizeDescription}>
+          {this.state.expanded ? "^ collapse ^ " : "v expand v"}
+        </div>
         <h3 className="rsvps">{event.yes_rsvp_count} RSVPs</h3>
       </div>
     );

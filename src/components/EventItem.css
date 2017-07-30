@@ -1,13 +1,24 @@
 .event-item {
   width: 80%;
-  height: 200px;
-  overflow: scroll;
   background-color: white;
   margin: 5px auto;
   padding: 20px;
   border: 10px solid #eaeaea;
   border-radius: 15px;
   word-wrap: break-word;
+}
+
+.description-full {
+  font-size: 12px;
+  height: auto;
+  /*transition: 2s linear all;*/
+}
+
+.description-collapsed {
+  font-size: 12px;
+  height: 100px;
+  overflow: hidden;
+  /*transition: 2s linear all;*/
 }
 
 .event-item img{
@@ -32,12 +43,21 @@ h3.rsvps {
   font-size: 14px;
   font-weight: bold;
   text-align: right;
-}
-
-.description {
-  font-size: 14px;
+  margin-top: 10px;
+  margin-bottom: 0;
 }
 
 a.event-link {
   font-size: 12px;
+}
+
+.resize-description {
+  background-color: white;
+  padding: 10px;
+  color: green;
+  text-align: center;
+}
+
+.resize-description:hover {
+  background-color: #eaeaea;
 }
