@@ -8,3 +8,11 @@
   width: 33%;
   min-width: 300px;
 }
+
+.no-events {
+  width: 80%;
+  margin: 20px auto;
+  padding: 20px;
+  border-radius: 3px;
+  background-color: white;
+}

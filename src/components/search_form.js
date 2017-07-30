@@ -6,7 +6,7 @@ class SearchForm extends Component {
         super(props);
 
         this.state = {
-            text: ''
+            text: this.props.currentText
         }
         this.update = this.update.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);

@@ -4,6 +4,7 @@ import './EventSearch.css';
 import SearchForm from './search_form';
 import EventList from './event_list';
 import MapContainer from './map_container';
+import Loading from './loading';
 
 class EventSearch extends Component {
   constructor(props) {
@@ -15,7 +16,8 @@ class EventSearch extends Component {
       lng: `-74.014773`,
       radius: '1',
       zoom: 14,
-      activeEventId: ""
+      activeEventId: "",
+      loading: true
       }
       // default: Carnegie Hall coordinates
     this.searchEvents = this.searchEvents.bind(this);
@@ -52,6 +54,8 @@ class EventSearch extends Component {
 
   searchEvents(){
     console.log('searching..');
+    this.setState({loading: true});
+
     const queryString = this.toQueryString({
       lat: this.state.lat,
       lon: this.state.lng,
@@ -65,7 +69,7 @@ class EventSearch extends Component {
       url: `https://api.meetup.com/find/events?key=${process.env.REACT_APP_MEETUP_KEY}&${queryString}`,
     }).then(response => {
         if (response.data){
-          this.setState({events: response.data, activeEventId: ""})
+          this.setState({events: response.data, activeEventId: "", loading: false});
         }
       }, error => {
         console.log(error);
@@ -78,11 +82,26 @@ class EventSearch extends Component {
   }
 
   render() {
+    let loadingComponent;
+    if (this.state.loading === true){
+      loadingComponent = <Loading />
+    }
+
+    let noEvents;
+    if (this.state.events.length === 0){
+      noEvents = (<div className="no-events">
+        <h3>There are no events to display!</h3>
+        <h3>Try another search </h3>
+      </div>);
+    }
     const center = {lat: this.state.lat, lng: this.state.lng};
     return (
       <div className="event-search-container">
-        < SearchForm updateTextSearch={this.updateTextSearch} />
+        {loadingComponent}
+        < SearchForm updateTextSearch={this.updateTextSearch}
+          currentText={this.state.text}/>
         <div className="left-container">
+          {noEvents}
           < EventList events={this.state.events}
             activeEventId={this.state.activeEventId}
             setActiveEvent={this.setActiveEvent}/>
