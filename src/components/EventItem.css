@@ -3,9 +3,10 @@
   height: 200px;
   overflow: scroll;
   background-color: white;
-  margin: 20px auto;
+  margin: 5px auto;
   padding: 20px;
-  border-radius: 3px;
+  border: 10px solid #eaeaea;
+  border-radius: 15px;
   word-wrap: break-word;
 }
 
@@ -15,6 +16,7 @@
 
 h1.event-name {
   font-size: 20px;
+  margin-top: 0px;
 }
 
 h3.time {

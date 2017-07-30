@@ -15,7 +15,7 @@ const Loading = () => {
 
   return (
     <div className="loading-container">
-      <h3> Waiting for the Meetup API response... </h3>
+      <h3> Waiting for the Meetup API... </h3>
       <div className="loading-icon">
         <svg viewBox="-30 -30 60 10" width="200" height="200" >
         <path fill="#FF4081"  stroke="#FF4081"

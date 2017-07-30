@@ -1,7 +1,7 @@
 .event-list-container {
   height: 90vh;
   overflow: scroll;
-  background-color: whitesmoke;
+  background-color: #eaeaea;
 }
 
 .event-list-container ul {
@@ -11,5 +11,5 @@
 }
 
 .active-event .event-item{
-  border: 5px solid #4CAF50;
+  /*border: 5px solid #4CAF50;*/
 }
