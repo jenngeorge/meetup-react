@@ -8,14 +8,19 @@
   word-wrap: break-word;
 }
 
+.event-item h3 {
+  margin-top: 5px;
+  margin-bottom: 0;
+}
+
 .description-full {
-  font-size: 12px;
+  font-size: 14px;
   height: auto;
   /*transition: 2s linear all;*/
 }
 
 .description-collapsed {
-  font-size: 12px;
+  font-size: 14px;
   height: 100px;
   overflow: hidden;
   /*transition: 2s linear all;*/
@@ -25,6 +30,11 @@
   max-width: 100%;
 }
 
+.event-link {
+  color: #4CAF50;
+  font-weight: bold;
+}
+
 h1.event-name {
   font-size: 20px;
   margin-top: 0px;
@@ -32,29 +42,32 @@ h1.event-name {
 
 h3.time {
   font-size: 14px;
-  font-weight: bold;
+  text-align: right;
 }
 
 h2.group-name {
   font-size: 14px;
+  font-weight: normal;
 }
 
 h3.rsvps {
   font-size: 14px;
   font-weight: bold;
   text-align: right;
-  margin-top: 10px;
-  margin-bottom: 0;
 }
 
-a.event-link {
-  font-size: 12px;
+h3.event-link a{
+  font-weight: normal;
+  text-align: center;
+  font-size: 14px;
+  color: #4CAF50;
 }
 
 .resize-description {
   background-color: white;
   padding: 10px;
-  color: green;
+  color: #4CAF50;
+  font-size: 14px;
   text-align: center;
 }
 

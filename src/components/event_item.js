@@ -33,9 +33,14 @@ class EventItem extends Component {
     return (
       <div className="event-item" onClick={this.props.setActiveEvent.bind(this, event.id)}>
         <h1 className="event-name">{event.name}</h1>
-        <a className="event-link" href={`${event.link}`}>{event.link}</a>
-        <h3 className="time"> {date.toString()}</h3>
-        <h2 className="group-name">group: {event.group.name}</h2>
+        <h2 className="group-name">Group: {event.group.name}</h2>
+        <h3 className="event-link">
+          <a href={`${event.link}`} target="_blank">
+            Link to Meetup event page
+          </a>
+        </h3>
+        <h3 className="time"> {date.toLocaleDateString()} {date.toLocaleTimeString()}</h3>
+
         <div className={this.state.expanded ? "description-full" : "description-collapsed" }
           dangerouslySetInnerHTML={this.escapedHTML(event.description)}></div>
         <div className="resize-description" onClick={this.resizeDescription}>
