@@ -12,7 +12,9 @@ class EventItem extends Component {
     this.escapedHTML = this.escapedHTML.bind(this);
   }
 
-  resizeDescription(){
+  resizeDescription(e){
+    e.preventDefault();
+    e.stopPropagation();
     if (this.state.expanded){
       this.setState({expanded: false});
     } else {
@@ -40,11 +42,10 @@ class EventItem extends Component {
           </a>
         </h3>
         <h3 className="time"> {date.toLocaleDateString()} {date.toLocaleTimeString()}</h3>
-
         <div className={this.state.expanded ? "description-full" : "description-collapsed" }
           dangerouslySetInnerHTML={this.escapedHTML(event.description)}></div>
         <div className="resize-description" onClick={this.resizeDescription}>
-          {this.state.expanded ? "^ collapse ^ " : "v expand v"}
+          {this.state.expanded ? "- collapse details - " : "+ expand  details +"}
         </div>
         <h3 className="rsvps">{event.yes_rsvp_count} RSVPs</h3>
       </div>
