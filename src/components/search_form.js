@@ -32,6 +32,9 @@ class SearchForm extends Component {
                     onChange={this.update("text")}/>
                     <input type="submit" value="Search"/>
                 </form>
+                <a className="github" href="https://github.com/jenngeorge/meetup-react">
+                  <img src="github-6-64.png" alt="github" />
+                </a>
             </section>
         )
     }

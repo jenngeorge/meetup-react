@@ -46,3 +46,14 @@
 .search-form input[type="submit"]:hover {
   background-color: #eaeaea;
 }
+
+.github {
+  position: absolute;
+  top: 15px;
+  right: 20px;
+}
+
+.github img {
+  height: 40px;
+  width: 40px;
+}
